@@ -1,0 +1,56 @@
+#Below is a hangman game I programmed for myself. You get 6 lives, and as you guess incorrectly, you lose a life. If you guess the correct word from the 
+##random chosen word that is selected for you it appears in the list, and if incorrect 
+
+import random
+import hangman_art
+import hangman_words
+from replit import clear
+
+chosen_word = random.choice(hangman_words.word_list)
+word_length = len(chosen_word)
+
+end_of_game = False
+lives = 6
+
+
+print(hangman_art.logo)
+#print(f'the random word is {chosen_word}.')
+
+#Creating a blank list
+display = []
+for _ in range(word_length):
+    display += "_"
+
+while not end_of_game:
+    guess = input("Guess a letter: ").lower()
+
+    clear()
+    #This clear clears all previous attmepts so you don't need to scroll down everytime you want enter a new letter
+
+    if guess in display:
+      print("You have already guessed this. Guess again")
+      
+    for position in range(word_length):
+        letter = chosen_word[position]
+        if letter == guess:
+            display[position] = letter
+    
+
+    #This checks if the user is wrong.
+    if guess not in chosen_word:
+        lives -= 1
+        print(f"you guessed {guess}. That is not in this word")
+        if lives == 0:
+            end_of_game = True
+            print("You lose.")
+
+    #This joins all the elements in the list and turns it into a String.
+    print(f"{' '.join(display)}")
+
+    #This check is if the user has got all letters in the chosen word.
+    if "_" not in display:
+        end_of_game = True
+        print("You win.")
+
+    #prints a visual of the stages of hangman the user is at
+    print(hangman_art.stages[lives])
