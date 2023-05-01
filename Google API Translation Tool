@@ -1,0 +1,50 @@
+#Need to install the googletrans library on your computer to use the below script
+##The below script will allow you to translate text from English to Spanish or Spanish to English line by line so that if listening to Spanish music you can easily
+## switch between reading a lyric in Spanish and then reading it in English as well to understand context
+from googletrans import Translator, LANGUAGES
+
+def get_language_input():
+    while True:
+        print("Select a language option:")
+        print("1. English to Spanish")
+        print("2. Spanish to English")
+        choice = input()
+        if choice in ('1', '2'):
+            return choice
+
+def get_text_input():
+    print("Please enter the text you want to translate (type 'END' to finish):")
+    lines = []
+    while True:
+        line = input()
+        if line == 'END':
+            break
+        lines.append(line)
+    return lines
+
+def translate_text(text, src, dest):
+    translator = Translator()
+    result = translator.translate(text, src=src, dest=dest)
+    return result.text
+
+def main():
+    language_choice = get_language_input()
+    text_to_translate = get_text_input()
+
+    print("\nOriginal text:")
+    for line in text_to_translate:
+        print(line)
+
+    print("\nTranslated text:")
+    for line in text_to_translate:
+        if language_choice == '1':
+            translated_text = translate_text(line, 'en', 'es')
+        else:
+            translated_text = translate_text(line, 'es', 'en')
+
+        print(line)
+        print(translated_text)
+        print()
+
+if __name__ == '__main__':
+    main()
