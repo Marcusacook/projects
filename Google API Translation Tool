@@ -5,7 +5,7 @@ from googletrans import Translator, LANGUAGES
 
 def get_language_input():
     while True:
-        print("Select a language option:")
+        print("Enter either 1 or 2 to select your language option:")
         print("1. English to Spanish")
         print("2. Spanish to English")
         choice = input()
